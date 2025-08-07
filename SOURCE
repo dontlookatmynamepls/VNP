@@ -3,7 +3,7 @@ local whitelist = {
     ["concubi99"] = true,
     ["hhhhcccc_cccc"] = true,
     ["HuynhNgocMai_Clone01"] = true,
-    ["Anh12a_e"] = true,
+    ["Anh12_e"] = true,
 }
 
 local player = game.Players.LocalPlayer
