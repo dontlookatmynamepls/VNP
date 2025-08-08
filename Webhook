@@ -1,0 +1,70 @@
+-- WHITELIST sanh sách người đc dùng script
+local whitelist = {
+    ["kiiii99p"] = true,
+    ["CongThien2025"] = true,
+    ["DRBcaychaykonao"] = true,
+    ["hahakqo2h2hj2"] = true,
+    ["megganw150ks"] = true,
+    ["ostincor7314"] = true,
+    ["madisndeindu"] = true,
+    ["tphat3513day"] = true,
+    ["THINH_0070"] = true,
+    ["chinchinchin1231"] = true,
+    ["ahi063"] = true,
+    ["ripinra1073"] = true,
+    ["phiphai26281"] = true,
+    ["Tvd_vdee"] = true,
+    ["haohanvai99999"] = true,
+    ["concubi99"] = true,
+    ["hhhhcccc_cccc"] = true,
+}
+
+local player = game.Players.LocalPlayer
+local HttpService = game:GetService("HttpService")
+
+-- GỬI WEBHOOK
+local function sendWebhook(p, whitelisted)
+    local dateNow = os.date("%Y-%m-%d")     -- Ngày hiện tại
+    local timeNow = os.date("%H:%M:%S")     -- Giờ hiện tại
+
+    local isWhitelisted = whitelist[p.Name]
+
+    local titleText = whitelisted and "✅ Player Are Whitelisted" or "⚠️ Player Not Whitelisted"
+    local noteText = whitelisted and "Player is on the whitelist" or "Not whitelisted"
+    local colorCode = whitelisted and 65280 or 16711680  -- Xanh nếu có whitelist, đỏ nếu không
+
+    local jsonData = HttpService:JSONEncode({
+        username = "Spidey Bot",
+        embeds = {{
+            title = titleText,
+            description = "**Name:** " .. p.Name ..
+                         "\n**UserId:** " .. tostring(p.UserId) ..
+                         "\n**Date:** " .. dateNow ..
+                         "\n**Time:** " .. timeNow ..
+                         "\n**Note:** " .. noteText,
+            color = colorCode
+        }}
+    })
+
+    local request = http_request or request or (syn and syn.request) or (fluxus and fluxus.request)
+    if request then
+        request({
+            Url = "https://discord.com/api/webhooks/1403245697838481499/foJwtycyQ3xtZ_VPNI8liSNFUWcsp0JZQ3_0AKxCO7eGs2S6OjoPGPFzTMg5Y_ip3NCF",
+            Method = "POST",
+            Headers = {["Content-Type"] = "application/json"},
+            Body = jsonData
+        })
+    else
+        warn("Executor không hỗ trợ HTTP Request. Không thể gửi webhook.")
+    end
+end
+
+-- KIỂM TRA WHITELIST
+if not whitelist[player.Name] then
+    sendWebhook(player, false)
+    task.wait(1)
+    game:GetService("Players").LocalPlayer:destroy()
+    return
+else
+    sendWebhook(player, true)
+end
