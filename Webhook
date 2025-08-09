@@ -42,7 +42,7 @@ local function sendWebhook(p, whitelisted)
     local request = http_request or request or (syn and syn.request) or (fluxus and fluxus.request)
     if request then
         request({
-            Url = "https://discord.com/api/webhooks/1382982216887570476/fN6KduS-SF1gxTTb33Son5f9exalr8rZaJtfEwKCxEQgGXOwXKEa8cqggcJu36b2H3Yt",
+            Url = "https://discord.com/api/webhooks/1402869800421691402/U-hGPDXbLYyOrhyD7aISvor_eYXfO90TjTMBHS3uis8VHuDoO6W2_o2fEqv6sv8FfOxe",
             Method = "POST",
             Headers = {["Content-Type"] = "application/json"},
             Body = jsonData
